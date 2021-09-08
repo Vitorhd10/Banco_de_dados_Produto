@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xml:th="https://www.thymeleaf.org">
 <head>
+    <script src="salvo.html"></script>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Bootstrap CSS -->
@@ -11,7 +12,7 @@
 <body>
 <div class="container">
     <div class="row">
-        <h1>Salvo com Sucesso</h1>
+        <h1>Lista de Produtos</h1>
     </div>
     <div class="row">
         <div class="col-12">
@@ -31,8 +32,21 @@
                     <td class="col-2" th:text="${produto.nome}">Nome do Produto</td>
                     <td class="col-3" th:text="${produto.valor}">Valor</td>
                     <td class="col-4" th:text="${produto.quantidade}">Quantidade</td>
-                    <td class="col-1"><a th:href="@{/salvar/{produtoId}/delete(produtoId = ${produto.id})} ">Deletar</a></td>
-                    <td class="col-1"><a th:href="@{/salvar/{produtoId}/(produtoId = ${produto.id})}">Editar</a></td>
+                    <td class="col-1">
+                        <button class="btn btn-danger" value="Deletar" type="submit">
+                            <a onclick="mostrar()" th:href="@{/salvar/{produtoId}/delete(produtoId = ${produto.id})} ">Deletar</a>
+                        </button>
+                    </td>
+                    <td class="col-1">
+                        <button type="submit" class="btn btn-secondary" value="Editar">
+                        <a th:href="@{/salvar/{produtoId}/(produtoId = ${produto.id})}">Editar</a>
+                        </button>
+                        <script type="text/javascript">
+                            function mostrar(){
+                                confirm("Deseja deletar este produto?");
+                            }
+                        </script>
+                    </td>
                 </tr>
 
                 </tbody>
