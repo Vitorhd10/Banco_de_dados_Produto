@@ -18,7 +18,6 @@ public class ProdutoController {
 
     @Autowired
     ProdutoService produtoService;
-    ProdutoRepository produtoRepository;
 
     @GetMapping("/salvar")
     private ModelAndView listProduto(@ModelAttribute Produto produto) {
@@ -67,15 +66,19 @@ public class ProdutoController {
     @PostMapping("/salvar/{id}")
     public ModelAndView update(@PathVariable long id) {
         ModelAndView mv = new ModelAndView("salvo");
+        List<Produto> produto = this.produtoService.listaProdutos();
+        mv.addObject("produto", produto);
         Produto produtos = this.produtoService.listaProdutoUnico(id);
         return mv;
     }
 
     @GetMapping("salvar/{id}/delete")
-    public String delete(@PathVariable("id") Model model, long id) {
-
+    public ModelAndView delete(@PathVariable long id) {
+        ModelAndView mv = new ModelAndView("salvo");
+        List<Produto> produtos = this.produtoService.listaProdutos();
+        mv.addObject("produto", produtos);
         this.produtoService.delete(id);
-        return "redirect:/salvar" ;
+        return mv;
     }
 
 
