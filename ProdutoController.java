@@ -30,16 +30,11 @@ public class ProdutoController {
 
     @PostMapping(value = "/salvar")
     public ModelAndView salvar(@ModelAttribute Produto produto) {
-        ModelAndView mv = new ModelAndView("salvo");
         Produto produto1 = produtoService.salvar(produto);
+        ModelAndView mv = new ModelAndView("salvo");
         List<Produto> produtos = this.produtoService.listaProdutos();
         mv.addObject("produto", produtos);
         return mv;
-    }
-
-    @GetMapping("/salvo")
-    public String salvo(Model model) {
-        return "salvo";
     }
 
     @GetMapping(value = "/index")
@@ -68,16 +63,15 @@ public class ProdutoController {
         ModelAndView mv = new ModelAndView("salvo");
         List<Produto> produto = this.produtoService.listaProdutos();
         mv.addObject("produto", produto);
-        Produto produtos = this.produtoService.listaProdutoUnico(id);
         return mv;
     }
 
     @GetMapping("salvar/{id}/delete")
     public ModelAndView delete(@PathVariable long id) {
+        this.produtoService.delete(id);
         ModelAndView mv = new ModelAndView("salvo");
         List<Produto> produtos = this.produtoService.listaProdutos();
         mv.addObject("produto", produtos);
-        this.produtoService.delete(id);
         return mv;
     }
 
