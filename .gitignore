@@ -3,6 +3,7 @@
 # Reference: https://intellij-support.jetbrains.com/hc/en-us/articles/206544839
 
 # User-specific stuff
+.idea/*
 .idea/**/workspace.xml
 .idea/**/tasks.xml
 .idea/**/usage.statistics.xml
@@ -35,7 +36,7 @@
 # .idea/modules.xml
 # .idea/*.iml
 # .idea/modules
-# *.iml
+*.iml
 # *.ipr
 
 # CMake
@@ -49,6 +50,8 @@ cmake-build-*/
 
 # IntelliJ
 out/
+
+target/
 
 # mpeltonen/sbt-idea plugin
 .idea_modules/
@@ -72,7 +75,6 @@ fabric.properties
 .idea/caches/build_file_checksums.ser
 
 ### Maven template
-target/
 pom.xml.tag
 pom.xml.releaseBackup
 pom.xml.versionsBackup
