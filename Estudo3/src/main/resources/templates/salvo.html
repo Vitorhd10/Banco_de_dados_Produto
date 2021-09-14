@@ -1,17 +1,20 @@
 <!DOCTYPE html>
 <html lang="en" xml:th="https://www.thymeleaf.org">
 <head>
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <title>Lista de Produtos</title>
+
 </head>
 <body>
 <div class="container">
     <div class="row">
-        <h1>Salvo com Sucesso</h1>
+        <h1>Lista de Produtos</h1>
     </div>
     <div class="row">
         <div class="col-12">
@@ -28,17 +31,48 @@
                 <tbody>
                 <tr th:each="produto: ${produto}">
                     <th class="col-1" scope="row" th:text="${produto.getId()}">ID</th>
-                    <td class="col-2" th:text="${produto}">Nome do Produto</td>
+                    <td class="col-2" th:text="${produto.nome}">Nome do Produto</td>
                     <td class="col-3" th:text="${produto.valor}">Valor</td>
                     <td class="col-4" th:text="${produto.quantidade}">Quantidade</td>
-                    <td class="col-1"><a href="">Deletar</a></td>
-                    <td class="col-1"><a href="">Editar</a></td>
+                    <td class="col-1">
+
+                        <!-- Button trigger modal -->
+                        <a class="btn btn-danger" data-bs-toggle="modal" data-bs-target="exampleModal" th:attr="data-target='#exampleModal' + ${produto.id}" >
+                            Excluir
+                        </a>
+
+                        <!-- Modal -->
+                        <div class="modal fade" th:id="'exampleModal'" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Deletar Produto!</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body" th:text="'Você deseja excluir o produto com o id: ' + ${produto.id}">
+                                        VOCÊ DESEJA DELETAR ESTE PRODUTO?
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                        <a  type="button" class="btn btn-primary" th:href="@{/salvar/{produtoId}/delete(produtoId = ${produto.id})}">Confirmar</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+
+
+                    <td class="col-1">
+                        <a class="btn btn-secondary"
+                           th:href="@{/salvar/{produtoId}/edit(produtoId = ${produto.id})}">Editar</a>
+
+                    </td>
                 </tr>
 
                 </tbody>
             </table>
             <form th:action="@{/index}" method="get">
-                <input type="submit" value="Novo Produto"/>
+                <input class="btn btn-primary" type="submit" value="Novo Produto"/>
             </form>
         </div>
     </div>
